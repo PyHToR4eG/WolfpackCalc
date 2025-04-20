@@ -29,6 +29,13 @@ public class CustomNumericUpDown : NumericUpDown
 
         try
         {
+            // Если строка пустая, устанавливаем минимальное значение (или 0)
+            if (string.IsNullOrWhiteSpace(this.Text))
+            {
+                this.Value = this.Minimum;
+                return;
+            }
+
             // Заменяем запятую на точку и парсим
             string text = this.Text.Replace(',', '.');
             decimal newValue = decimal.Parse(text, CultureInfo.InvariantCulture);
@@ -42,8 +49,10 @@ public class CustomNumericUpDown : NumericUpDown
         }
         catch
         {
-            // Если ввод некорректен - откат к текущему значению
-            this.Value = this.Value;
+            // Если ввод некорректен - откат к текущему значению (без рекурсии)
+            _isProgrammaticChange = true;
+            this.Text = this.Value.ToString("0.########", CultureInfo.InvariantCulture);
+            _isProgrammaticChange = false;
         }
     }
 

@@ -18,6 +18,7 @@ namespace WolfpackCalc
         private const double KnotsConversionFactor = 1.944;
         private const double MaxSpeedKnots = 44;
         private const double AngleConversionFactor = 16;
+        private const double KnotsToMetersPerSecond = 0.514444;
         private static readonly double DegreesToRadians = Math.PI / 180;
         private static readonly double RadiansToDegrees = 180 / Math.PI;
         private static readonly double Epsilon = 1E-10;
@@ -29,6 +30,7 @@ namespace WolfpackCalc
         {
             InitializeComponent();
             this.Text = "Wolfpack Calc";
+            this.StartPosition = FormStartPosition.CenterScreen;
             var iconStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("WolfpackCalc.icon.ico");
             if (iconStream != null)
             {
@@ -80,7 +82,11 @@ namespace WolfpackCalc
 
         private void ButtonSpeed_Click(object sender, EventArgs e)
         {
+            CalcSpeed();
+        }
 
+        private void CalcSpeed()
+        {
             double length = (double)numericTimeLength.Value;
             double time = (double)numericTime.Value;
 
@@ -98,7 +104,8 @@ namespace WolfpackCalc
                 labelSpeed.Text = "Error: Speed exceeds maximum";
                 labelLastSpeed.Text = "Err";
             }
-            else {
+            else
+            {
                 labelSpeed.Text = $"Speed: {speed} Kts";
                 labelLastSpeed.Text = $"{speed:F2}"; // Всегда 2 знака после запятой
             }
@@ -129,6 +136,11 @@ namespace WolfpackCalc
         }
 
         private void ButtonCalcDist_Click(object sender, EventArgs e)
+        {
+            CalcDistance();
+        }
+
+        private void CalcDistance()
         {
             double height = (double)numericDistHeight.Value;
             double angle = (double)numericDistAngle.Value;
@@ -209,6 +221,11 @@ namespace WolfpackCalc
         }
 
         private void ButtonCalcAOB_Click(object sender, EventArgs e)
+        {
+            CalcAOB();
+        }
+
+        private void CalcAOB()
         {
             double targetLength = (double)numericVTL.Value;
             double targetHeight = (double)numericVTH.Value;
@@ -459,6 +476,11 @@ namespace WolfpackCalc
 
         private void Button3BCourse_Click(object sender, EventArgs e)
         {
+            Calc3BCourse();
+        }
+
+        private void Calc3BCourse()
+        {
             double bearing1 = (double)numericBearing1.Value;
             double bearing2 = (double)numericBearing2.Value;
             double bearing3 = (double)numericBearing3.Value;
@@ -519,7 +541,12 @@ namespace WolfpackCalc
             numericCTC.Value = (decimal)Math.Round(angleBetweenPoints, 2);
         }
 
-        private void buttonConvert_Click(object sender, EventArgs e)
+        private void ButtonConvert_Click(object sender, EventArgs e)
+        {
+            ConvertCourseToAOB();
+        }
+
+        private void ConvertCourseToAOB()
         {
             double targetCourse = (double)numericCTC.Value;
             double bearing = (double)numericCB.Value;
@@ -530,7 +557,7 @@ namespace WolfpackCalc
                 bearing = (bearing + (double)numericCSC.Value) % 360;
             }
 
-            (int  aob, string side) = CalculateAOB(targetCourse, bearing);
+            (int aob, string side) = CalculateAOB(targetCourse, bearing);
 
             switch (side)
             {
@@ -556,7 +583,6 @@ namespace WolfpackCalc
             panelLAOBB.Visible = false;
             labelLAOBD.Text = side;
             labelLAOB.Text = $"{aob:F1}";
-
         }
 
         public static (int angle, string side) CalculateAOB(double targetCourse, double bearing)
@@ -594,5 +620,167 @@ namespace WolfpackCalc
             return (aob, side);
         }
 
+        private void ButtonSPCalc_Click(object sender, EventArgs e)
+        {
+            OutputPreemptive();
+        }
+
+        private void OutputPreemptive()
+        {
+            double distanceSH = (double)numericSHD.Value;
+            double timeSH = (double)numericSHT.Value;
+            
+            if (distanceSH == 0 || timeSH == 0)
+            {
+                label30knots.Text = label40knots.Text = label44knots.Text = "Invalid value";
+                return;
+            }
+
+            double? leadAngle30 = CalculateTorpedoLead(distanceSH, 30, timeSH);
+            double? leadAngle40 = CalculateTorpedoLead(distanceSH, 40, timeSH);
+            double? leadAngle44 = CalculateTorpedoLead(distanceSH, 44, timeSH);
+
+            /*
+            if (leadAngle30.HasValue)
+            {
+                label30knots.Text = $"{leadAngle30.Value:F2} °";
+            }
+            else
+            {
+                label30knots.Text = "Torpedo too slow";
+            }
+
+            if (leadAngle30.HasValue)
+            {
+                label40knots.Text = $"{leadAngle40.Value:F2} °";
+            }
+            else
+            {
+                label40knots.Text = "Torpedo too slow";
+            }
+
+            if (leadAngle30.HasValue)
+            {
+                label44knots.Text = $"{leadAngle44.Value:F2} °";
+            }
+            else
+            {
+                label44knots.Text = "Torpedo too slow";
+            } */
+
+            if (leadAngle30.HasValue)
+            {
+                label30knots.Text = $"{leadAngle30.Value:F2} °";
+            }
+            else
+            {
+                label30knots.Text = "Torpedo too slow";
+            }
+
+            if (leadAngle30.HasValue)
+            {
+                label40knots.Text = $"{leadAngle40.Value:F2} °";
+            }
+            else
+            {
+                label40knots.Text = "Torpedo too slow";
+            }
+
+            if (leadAngle30.HasValue)
+            {
+                label44knots.Text = $"{leadAngle44.Value:F2} °";
+            }
+            else
+            {
+                label44knots.Text = "Torpedo too slow";
+            }
+            
+        }
+
+        private double? CalculateTorpedoLead(double distanceToTarget, double torpedoSpeedKnots, double timePerDegree)
+        {
+            // Конвертируем скорость торпеды из узлов в м/с
+            double torpedoSpeedMs = torpedoSpeedKnots * KnotsToMetersPerSecond;
+            return distanceToTarget / torpedoSpeedMs / timePerDegree;
+
+            /*
+            // Рассчитываем угловую скорость цели (рад/сек)
+            double angularSpeedDegPerSec = 1 / timePerDegree;
+            double angularSpeedRadPerSec = angularSpeedDegPerSec * DegreesToRadians;
+
+            // Линейная скорость цели (м/с)
+            double targetSpeedMs = distanceToTarget * angularSpeedRadPerSec;
+
+            // Проверка возможности перехвата
+            if (torpedoSpeedMs <= targetSpeedMs)
+                return null;
+
+            // Рассчитываем угол упреждения (радианы)
+            double leadAngleRad = distanceToTarget * angularSpeedRadPerSec /
+                                Math.Sqrt(Math.Pow(torpedoSpeedMs, 2) - Math.Pow(targetSpeedMs, 2));
+
+            // Конвертируем в градусы и возвращаем
+            return leadAngleRad * RadiansToDegrees; */
+        }
+
+        private void numericSHT_Validated(object sender, EventArgs e)
+        {
+            OutputPreemptive();
+        }
+
+        private void numericSHD_Validated(object sender, EventArgs e)
+        {
+            OutputPreemptive();
+        }
+
+        private void numericSHT_ValueChanged(object sender, EventArgs e)
+        {
+            OutputPreemptive();
+        }
+
+        private void numericSHD_ValueChanged(object sender, EventArgs e)
+        {
+            OutputPreemptive();
+        }
+
+        private void numericTimeLength_Validated(object sender, EventArgs e)
+        {
+            CalcSpeed();
+        }
+
+        private void numericTimeLength_ValueChanged(object sender, EventArgs e)
+        {
+            CalcSpeed();
+        }
+
+        private void numericTime_Validated(object sender, EventArgs e)
+        {
+            CalcSpeed();
+        }
+
+        private void numericTime_ValueChanged(object sender, EventArgs e)
+        {
+            CalcSpeed();
+        }
+
+        private void numericDistHeight_Validated(object sender, EventArgs e)
+        {
+            CalcDistance();
+        }
+
+        private void numericDistHeight_ValueChanged(object sender, EventArgs e)
+        {
+            CalcDistance();
+        }
+
+        private void numericDistAngle_ValueChanged(object sender, EventArgs e)
+        {
+            CalcDistance();
+        }
+
+        private void numericDistAngle_Validated(object sender, EventArgs e)
+        {
+            CalcDistance();
+        }
     }
 }

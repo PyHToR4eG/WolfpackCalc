@@ -116,6 +116,23 @@
             this.buttonCalcDist = new System.Windows.Forms.Button();
             this.numericDistAngle = new CustomNumericUpDown();
             this.numericDistHeight = new CustomNumericUpDown();
+            this.tabSilentHunter = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label33 = new System.Windows.Forms.Label();
+            this.numericSHD = new CustomNumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.numericSHT = new CustomNumericUpDown();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.label44knots = new System.Windows.Forms.Label();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label40knots = new System.Windows.Forms.Label();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label30knots = new System.Windows.Forms.Label();
+            this.buttonSPCalc = new System.Windows.Forms.Button();
             this.labelLastSpeed = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -176,6 +193,15 @@
             this.panelDist.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericDistAngle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericDistHeight)).BeginInit();
+            this.tabSilentHunter.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSHD)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSHT)).BeginInit();
+            this.groupBox12.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.panelLastDist.SuspendLayout();
             this.panelLastSpeed.SuspendLayout();
             this.panelLastResult.SuspendLayout();
@@ -189,6 +215,7 @@
             this.tabMain.Controls.Add(this.tabCourse);
             this.tabMain.Controls.Add(this.tabSpeed);
             this.tabMain.Controls.Add(this.tabDistance);
+            this.tabMain.Controls.Add(this.tabSilentHunter);
             this.tabMain.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabMain.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabMain.Location = new System.Drawing.Point(0, 0);
@@ -1121,7 +1148,7 @@
             this.buttonConvert.TabIndex = 5;
             this.buttonConvert.Text = "Convert";
             this.buttonConvert.UseVisualStyleBackColor = true;
-            this.buttonConvert.Click += new System.EventHandler(this.buttonConvert_Click);
+            this.buttonConvert.Click += new System.EventHandler(this.ButtonConvert_Click);
             // 
             // tabSpeed
             // 
@@ -1203,6 +1230,8 @@
             0,
             0,
             0});
+            this.numericTimeLength.ValueChanged += new System.EventHandler(this.numericTimeLength_ValueChanged);
+            this.numericTimeLength.Validated += new System.EventHandler(this.numericTimeLength_Validated);
             // 
             // numericTime
             // 
@@ -1225,6 +1254,8 @@
             0,
             0,
             0});
+            this.numericTime.ValueChanged += new System.EventHandler(this.numericTime_ValueChanged);
+            this.numericTime.Validated += new System.EventHandler(this.numericTime_Validated);
             // 
             // labelSpeed
             // 
@@ -1371,6 +1402,8 @@
             0,
             0,
             0});
+            this.numericDistAngle.ValueChanged += new System.EventHandler(this.numericDistAngle_ValueChanged);
+            this.numericDistAngle.Validated += new System.EventHandler(this.numericDistAngle_Validated);
             // 
             // numericDistHeight
             // 
@@ -1387,6 +1420,224 @@
             0,
             0,
             0});
+            this.numericDistHeight.ValueChanged += new System.EventHandler(this.numericDistHeight_ValueChanged);
+            this.numericDistHeight.Validated += new System.EventHandler(this.numericDistHeight_Validated);
+            // 
+            // tabSilentHunter
+            // 
+            this.tabSilentHunter.Controls.Add(this.panel5);
+            this.tabSilentHunter.Controls.Add(this.groupBox12);
+            this.tabSilentHunter.Controls.Add(this.groupBox11);
+            this.tabSilentHunter.Controls.Add(this.groupBox10);
+            this.tabSilentHunter.Controls.Add(this.buttonSPCalc);
+            this.tabSilentHunter.Location = new System.Drawing.Point(4, 28);
+            this.tabSilentHunter.Name = "tabSilentHunter";
+            this.tabSilentHunter.Size = new System.Drawing.Size(786, 417);
+            this.tabSilentHunter.TabIndex = 3;
+            this.tabSilentHunter.Text = "Silent Hunter";
+            this.tabSilentHunter.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.AutoSize = true;
+            this.panel5.Controls.Add(this.panel3);
+            this.panel5.Controls.Add(this.panel4);
+            this.panel5.Location = new System.Drawing.Point(120, 106);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(534, 44);
+            this.panel5.TabIndex = 20;
+            // 
+            // panel3
+            // 
+            this.panel3.AutoSize = true;
+            this.panel3.Controls.Add(this.label33);
+            this.panel3.Controls.Add(this.numericSHD);
+            this.panel3.Controls.Add(this.label32);
+            this.panel3.Location = new System.Drawing.Point(3, 3);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(252, 38);
+            this.panel3.TabIndex = 15;
+            // 
+            // label33
+            // 
+            this.label33.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label33.Location = new System.Drawing.Point(3, 5);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(103, 26);
+            this.label33.TabIndex = 9;
+            this.label33.Text = "Distance:";
+            // 
+            // numericSHD
+            // 
+            this.numericSHD.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.numericSHD.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericSHD.Increment = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericSHD.Location = new System.Drawing.Point(112, 3);
+            this.numericSHD.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericSHD.Name = "numericSHD";
+            this.numericSHD.Size = new System.Drawing.Size(100, 32);
+            this.numericSHD.TabIndex = 8;
+            this.numericSHD.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericSHD.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericSHD.ValueChanged += new System.EventHandler(this.numericSHD_ValueChanged);
+            this.numericSHD.Validated += new System.EventHandler(this.numericSHD_Validated);
+            // 
+            // label32
+            // 
+            this.label32.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label32.Location = new System.Drawing.Point(218, 5);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(31, 26);
+            this.label32.TabIndex = 10;
+            this.label32.Text = "m";
+            // 
+            // panel4
+            // 
+            this.panel4.AutoSize = true;
+            this.panel4.Controls.Add(this.numericSHT);
+            this.panel4.Controls.Add(this.label35);
+            this.panel4.Controls.Add(this.label36);
+            this.panel4.Location = new System.Drawing.Point(301, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(230, 38);
+            this.panel4.TabIndex = 16;
+            // 
+            // numericSHT
+            // 
+            this.numericSHT.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.numericSHT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.numericSHT.DecimalPlaces = 2;
+            this.numericSHT.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.numericSHT.Location = new System.Drawing.Point(75, 3);
+            this.numericSHT.Maximum = new decimal(new int[] {
+            600,
+            0,
+            0,
+            0});
+            this.numericSHT.Name = "numericSHT";
+            this.numericSHT.Size = new System.Drawing.Size(100, 32);
+            this.numericSHT.TabIndex = 11;
+            this.numericSHT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericSHT.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.numericSHT.ValueChanged += new System.EventHandler(this.numericSHT_ValueChanged);
+            this.numericSHT.Validated += new System.EventHandler(this.numericSHT_Validated);
+            // 
+            // label35
+            // 
+            this.label35.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.Location = new System.Drawing.Point(3, 5);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(66, 26);
+            this.label35.TabIndex = 12;
+            this.label35.Text = "Time:";
+            // 
+            // label36
+            // 
+            this.label36.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label36.Location = new System.Drawing.Point(181, 5);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(46, 26);
+            this.label36.TabIndex = 13;
+            this.label36.Text = "sec";
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.AutoSize = true;
+            this.groupBox12.Controls.Add(this.label44knots);
+            this.groupBox12.Location = new System.Drawing.Point(517, 156);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(168, 114);
+            this.groupBox12.TabIndex = 19;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "44 knots";
+            // 
+            // label44knots
+            // 
+            this.label44knots.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label44knots.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label44knots.Location = new System.Drawing.Point(21, 22);
+            this.label44knots.Name = "label44knots";
+            this.label44knots.Size = new System.Drawing.Size(127, 70);
+            this.label44knots.TabIndex = 18;
+            this.label44knots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.AutoSize = true;
+            this.groupBox11.Controls.Add(this.label40knots);
+            this.groupBox11.Location = new System.Drawing.Point(310, 156);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(168, 114);
+            this.groupBox11.TabIndex = 18;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "40 knots";
+            // 
+            // label40knots
+            // 
+            this.label40knots.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label40knots.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label40knots.Location = new System.Drawing.Point(21, 22);
+            this.label40knots.Name = "label40knots";
+            this.label40knots.Size = new System.Drawing.Size(127, 70);
+            this.label40knots.TabIndex = 18;
+            this.label40knots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.AutoSize = true;
+            this.groupBox10.Controls.Add(this.label30knots);
+            this.groupBox10.Location = new System.Drawing.Point(103, 156);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(168, 114);
+            this.groupBox10.TabIndex = 17;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "30 knots";
+            // 
+            // label30knots
+            // 
+            this.label30knots.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label30knots.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label30knots.Location = new System.Drawing.Point(21, 22);
+            this.label30knots.Name = "label30knots";
+            this.label30knots.Size = new System.Drawing.Size(127, 70);
+            this.label30knots.TabIndex = 18;
+            this.label30knots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonSPCalc
+            // 
+            this.buttonSPCalc.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.buttonSPCalc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSPCalc.Location = new System.Drawing.Point(318, 281);
+            this.buttonSPCalc.Name = "buttonSPCalc";
+            this.buttonSPCalc.Size = new System.Drawing.Size(150, 50);
+            this.buttonSPCalc.TabIndex = 5;
+            this.buttonSPCalc.Text = "Calc Preemptive";
+            this.buttonSPCalc.UseVisualStyleBackColor = true;
+            this.buttonSPCalc.Click += new System.EventHandler(this.ButtonSPCalc_Click);
             // 
             // labelLastSpeed
             // 
@@ -1658,6 +1909,19 @@
             this.panelDist.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericDistAngle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericDistHeight)).EndInit();
+            this.tabSilentHunter.ResumeLayout(false);
+            this.tabSilentHunter.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSHD)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSHT)).EndInit();
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
             this.panelLastDist.ResumeLayout(false);
             this.panelLastDist.PerformLayout();
             this.panelLastSpeed.ResumeLayout(false);
@@ -1783,6 +2047,23 @@
         private System.Windows.Forms.CheckBox checkCP;
         private CustomNumericUpDown numericCB;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.TabPage tabSilentHunter;
+        private System.Windows.Forms.Button buttonSPCalc;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
+        private CustomNumericUpDown numericSHT;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private CustomNumericUpDown numericSHD;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label30knots;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.Label label44knots;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Label label40knots;
+        private System.Windows.Forms.Panel panel5;
     }
 }
 
