@@ -636,9 +636,9 @@ namespace WolfpackCalc
                 return;
             }
 
-            double? leadAngle30 = CalculateTorpedoLead(distanceSH, 30, timeSH);
-            double? leadAngle40 = CalculateTorpedoLead(distanceSH, 40, timeSH);
-            double? leadAngle44 = CalculateTorpedoLead(distanceSH, 44, timeSH);
+            (double? leadAngle30, double? timeToHit30) = CalculateTorpedoLead(distanceSH, 30, timeSH);
+            (double? leadAngle40, double? timeToHit40) = CalculateTorpedoLead(distanceSH, 40, timeSH);
+            (double? leadAngle44, double? timeToHit44) = CalculateTorpedoLead(distanceSH, 44, timeSH);
 
             /*
             if (leadAngle30.HasValue)
@@ -668,27 +668,27 @@ namespace WolfpackCalc
                 label44knots.Text = "Torpedo too slow";
             } */
 
-            if (leadAngle30.HasValue)
+            if (leadAngle30.HasValue && timeToHit30.HasValue)
             {
-                label30knots.Text = $"{leadAngle30.Value:F2} °";
+                label30knots.Text = $"{leadAngle30.Value:F2} °\n{timeToHit30.Value:F1} sec";
             }
             else
             {
                 label30knots.Text = "Torpedo too slow";
             }
 
-            if (leadAngle30.HasValue)
+            if (leadAngle40.HasValue && timeToHit40.HasValue)
             {
-                label40knots.Text = $"{leadAngle40.Value:F2} °";
+                label40knots.Text = $"{leadAngle40.Value:F2} °\n{timeToHit40.Value:F1} sec";
             }
             else
             {
                 label40knots.Text = "Torpedo too slow";
             }
 
-            if (leadAngle30.HasValue)
+            if (leadAngle44.HasValue && timeToHit44.HasValue)
             {
-                label44knots.Text = $"{leadAngle44.Value:F2} °";
+                label44knots.Text = $"{leadAngle44.Value:F2} °\n{timeToHit44.Value:F1} sec";
             }
             else
             {
@@ -697,11 +697,13 @@ namespace WolfpackCalc
             
         }
 
-        private double? CalculateTorpedoLead(double distanceToTarget, double torpedoSpeedKnots, double timePerDegree)
+        private (double?, double?) CalculateTorpedoLead(double distanceToTarget, double torpedoSpeedKnots, double timePerDegree)
         {
             // Конвертируем скорость торпеды из узлов в м/с
             double torpedoSpeedMs = torpedoSpeedKnots * KnotsToMetersPerSecond;
-            return distanceToTarget / torpedoSpeedMs / timePerDegree;
+            double timeToTarget = distanceToTarget / torpedoSpeedMs;
+            double lead = timeToTarget / timePerDegree;
+            return (lead, timeToTarget);
 
             /*
             // Рассчитываем угловую скорость цели (рад/сек)
