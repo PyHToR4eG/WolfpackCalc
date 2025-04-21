@@ -670,7 +670,7 @@ namespace WolfpackCalc
 
             if (leadAngle30.HasValue && timeToHit30.HasValue)
             {
-                label30knots.Text = $"{leadAngle30.Value:F2} °\n{timeToHit30.Value:F1} sec";
+                label30knots.Text = $"{leadAngle30.Value:F2} °\n{timeToHit30.Value / 60:F0}m {timeToHit30.Value % 60:F0}s";
             }
             else
             {
@@ -679,7 +679,7 @@ namespace WolfpackCalc
 
             if (leadAngle40.HasValue && timeToHit40.HasValue)
             {
-                label40knots.Text = $"{leadAngle40.Value:F2} °\n{timeToHit40.Value:F1} sec";
+                label40knots.Text = $"{leadAngle40.Value:F2} °\n{timeToHit40.Value / 60:F0}m {timeToHit40.Value % 60:F0}s";
             }
             else
             {
@@ -688,7 +688,7 @@ namespace WolfpackCalc
 
             if (leadAngle44.HasValue && timeToHit44.HasValue)
             {
-                label44knots.Text = $"{leadAngle44.Value:F2} °\n{timeToHit44.Value:F1} sec";
+                label44knots.Text = $"{leadAngle44.Value:F2} °\n{timeToHit44.Value / 60:F0}m {timeToHit44.Value % 60:F0}s";
             }
             else
             {
